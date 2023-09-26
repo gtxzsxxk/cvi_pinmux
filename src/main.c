@@ -91,8 +91,8 @@ int main(int argc, char **argv) {
                     // printf("value %d\n", value);
                     print_fun(optarg, value);
 
-                    printf("register: 0x%x\n", PINMUX_BASE + pin_list[i].offset);
-                    printf("value: %d\n", value);
+                    printf("register: 0x%08x\n", PINMUX_BASE + pin_list[i].offset);
+                    printf("value: 0x%08x\n", value);
                 } else {
                     printf("\nInvalid option: %s", optarg);
                 }
@@ -126,8 +126,8 @@ int main(int argc, char **argv) {
                     if (f_val == INVALID_PIN)
                         return 1;
 
-                    printf("register: %x\n", PINMUX_BASE + pin_list[i].offset);
-                    printf("value: %d\n", f_val);
+                    printf("register: 0x%08x\n", PINMUX_BASE + pin_list[i].offset);
+                    printf("value: 0x%08x\n", f_val);
 
                     mmio_write_32(PINMUX_BASE + pin_list[i].offset, f_val);
                 } else {
