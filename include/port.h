@@ -7,8 +7,14 @@
 
 #include <stdint.h>
 
-uint32_t mmio_read_32(uintptr_t addr);
+#define PINMUX_BASE 0x03001000
 
-void mmio_write_32(uintptr_t addr, uint32_t f_val);
+int pinmux_setup(uintptr_t base_addr);
+
+void pinmux_close();
+
+uint32_t pinmux_read_32(uintptr_t offset);
+
+void pinmux_write_32(uintptr_t offset, uint32_t f_val);
 
 #endif //CVI_PINMUX_PORT_H

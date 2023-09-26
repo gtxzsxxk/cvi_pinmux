@@ -6,12 +6,11 @@
 #include "../include/port.h"
 
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
-#define PINMUX_BASE 0x03001000
 #define INVALID_PIN 9999
 
 
 uint32_t convert_func_to_value(char *pin, char *func) {
-    uint32_t i = 0;
+    uint32_t i;
     uint32_t max_fun_num = NELEMS(pin_func);
     char v;
 
@@ -33,7 +32,7 @@ uint32_t convert_func_to_value(char *pin, char *func) {
 }
 
 void print_fun(char *name, uint32_t value) {
-    uint32_t i = 0;
+    uint32_t i;
     uint32_t max_fun_num = NELEMS(pin_func);
     char pinname[128];
 
@@ -60,8 +59,8 @@ void print_usage(void) {
 }
 
 int main(int argc, char **argv) {
-    int opt = 0;
-    uint32_t i = 0;
+    int opt;
+    uint32_t i;
     uint32_t value;
     char pin[32];
     char func[32];
@@ -79,6 +78,8 @@ int main(int argc, char **argv) {
         optarg = NULL;
     }
 
+    pinmux_setup(PINMUX_BASE);
+
     while ((opt = getopt(argc, argv, "hplr:w:")) != -1) {
         switch (opt) {
             case 'r':
@@ -87,7 +88,7 @@ int main(int argc, char **argv) {
                         break;
                 }
                 if (i != NELEMS(pin_list)) {
-                    value = mmio_read_32(PINMUX_BASE + pin_list[i].offset);
+                    value = pinmux_read_32(pin_list[i].offset);
                     // printf("value %d\n", value);
                     print_fun(optarg, value);
 
@@ -129,7 +130,7 @@ int main(int argc, char **argv) {
                     printf("register: 0x%08x\n", PINMUX_BASE + pin_list[i].offset);
                     printf("value: 0x%08x\n", f_val);
 
-                    mmio_write_32(PINMUX_BASE + pin_list[i].offset, f_val);
+                    pinmux_write_32(pin_list[i].offset, f_val);
                 } else {
                     printf("\nInvalid option: %s\n", optarg);
                 }
@@ -143,7 +144,7 @@ int main(int argc, char **argv) {
 
             case 'l':
                 for (i = 0; i < NELEMS(pin_list); i++) {
-                    value = mmio_read_32(PINMUX_BASE + pin_list[i].offset);
+                    value = pinmux_read_32(pin_list[i].offset);
                     print_fun(pin_list[i].name, value);
                 }
                 break;
@@ -161,6 +162,8 @@ int main(int argc, char **argv) {
                 break;
         }
     }
+
+    pinmux_close();
 
     return 0;
 }
