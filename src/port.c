@@ -16,6 +16,6 @@ uint32_t mmio_read_32(uintptr_t addr) {
 
 void mmio_write_32(uintptr_t addr, uint32_t f_val) {
 #ifdef HOST_DEBUG
-    printf("Trying to write memory @ 0x%08lx value 0x%8lx\n", addr, f_val);
+    printf("Trying to write memory @ 0x%08lx value 0x%08lx\n", addr, f_val);
 #endif
 }
