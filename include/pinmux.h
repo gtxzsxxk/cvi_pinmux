@@ -7,7 +7,7 @@
 struct funlist {
     char name[32];
     char func[32];
-} funlist_st;
+};
 
 struct funlist pin_func[] = {
         {"SD0_CLK0",          "SDIO0_CLK"},
@@ -425,7 +425,7 @@ struct funlist pin_func[] = {
 struct pinlist {
     char name[32];
     unsigned int offset;
-} pinlist_st;
+};
 
 struct pinlist pin_list[] = {
         {"SD0_CLK",          0x0},

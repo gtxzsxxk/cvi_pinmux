@@ -149,14 +149,6 @@ int main(int argc, char **argv) {
                 }
                 break;
 
-            case 'h':
-                print_usage();
-                break;
-
-            case '?':
-                print_usage();
-                break;
-
             default:
                 print_usage();
                 break;
