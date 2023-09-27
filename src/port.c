@@ -9,9 +9,10 @@
 #include "../include/port.h"
 
 volatile uint8_t *pinmux_base;
+int fd;
 
 int pinmux_setup(uintptr_t base_addr) {
-    int fd = open("/dev/mem", O_RDWR);
+    fd = open("/dev/mem", O_RDWR);
     if (fd < 0) {
         printf("Failed to open /dev/mem. Are you root?\n");
         return -1;
@@ -26,6 +27,7 @@ int pinmux_setup(uintptr_t base_addr) {
 }
 
 void pinmux_close() {
+    close(fd);
     if (pinmux_base != NULL) {
         munmap(pinmux_base, 0x1000);
     }
