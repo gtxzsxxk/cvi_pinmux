@@ -7,4 +7,6 @@ add_executable(cvi_pinmux src/main.c
         include/pinmux.h
         src/port.c
         include/port.h
+        src/pinmux.c
+        src/pinmux.c
 )
