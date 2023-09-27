@@ -79,6 +79,8 @@ int main(int argc, char **argv) {
     }
 
     pinmux_setup(PINMUX_BASE);
+    memset(pin, 0, sizeof(pin));
+    memset(func, 0, sizeof(func));
 
     while ((opt = getopt(argc, argv, "hplr:w:")) != -1) {
         switch (opt) {
